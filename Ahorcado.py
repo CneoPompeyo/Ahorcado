@@ -1,5 +1,7 @@
 class Ahorcado():
+
     palabra = 'BANANA'
+    vidas = 3
 
     def verificarLetra(self, a):
         posi = self.palabra.find(a)
@@ -13,3 +15,6 @@ class Ahorcado():
             return 'CORRECTA'
         else:
             return 'INCORRECTA'
+    
+    def restarVida(self):
+        self.vidas -= 1
