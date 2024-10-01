@@ -7,3 +7,9 @@ class Ahorcado():
             return 'CORRECTA'
         else:
             return 'INCORRECTA'
+        
+    def verificarPalabra(self, a): 
+        if (self.palabra == a):
+            return 'CORRECTA'
+        else:
+            return 'INCORRECTA'

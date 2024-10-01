@@ -11,5 +11,13 @@ class Test_Ahorcado(unittest.TestCase):
         juego = Ahorcado()
         self.assertEqual(juego.verificarLetra("C"),'INCORRECTA', msg='{0}, {1}')
 
+    def test_palabra_correcta(self):
+        juego = Ahorcado()
+        self.assertEqual(juego.verificarLetra('BANANA'),'CORRECTA', msg='{0}, {1}')
+
+    def test_palabra_incorrecta(self):
+        juego = Ahorcado()
+        self.assertEqual(juego.verificarLetra("MANZANA"),'INCORRECTA', msg='{0}, {1}')
+
 if __name__ == '__main__':
     unittest.main()
