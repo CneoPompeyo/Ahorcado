@@ -3,9 +3,11 @@ class Ahorcado():
     palabra = 'BANANA'
     vidas = 3
     letrasUsadas = []
+    palabraescondida = ""
 
     def __init__(self, palabraInicial):
         self.definirPalabra(palabraInicial)
+        self.palabraescondida =   " ".join(["_" for x in self.palabra])
 
     def pruebaLetra(self,letra):
         self.verificarLetra(letra)
@@ -39,3 +41,9 @@ class Ahorcado():
             return True
         except ValueError:
             return False
+        
+    def getPalabraEscondida(self):
+        return self.palabraescondida
+    
+    def setPalabraEscondida(self, letra):
+        #return [i for i, elemento in enumerate(lista) if elemento == palabra]

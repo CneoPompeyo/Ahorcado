@@ -42,5 +42,15 @@ class Test_Ahorcado(unittest.TestCase):
         juego.pruebaLetra(letraTest)
         self.assertEqual(juego.fueUsada(letraTest),True , msg='{0}, {1}')
 
+    def test_mostrar_largo_palabra(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        self.assertEqual(juego.getPalabraEscondida(), "_ _ _ _ _ _ _", msg='{0}, {1}')
+
+    def test_mostrar_letra_correcta_en_lugar(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        self.assertEqual(juego.getPalabraEscondida(), "_ A _ A _ _ A", msg='{0}, {1}')
+
 if __name__ == '__main__':
     unittest.main()
