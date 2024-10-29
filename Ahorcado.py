@@ -1,23 +1,32 @@
 class Ahorcado():
 
-    palabra = 'BANANA'
-    vidas = 3
+    palabra = ''
+    vidas = 6
     letrasUsadas = []
-    palabraescondida = ""
+    palabraescondida = ''
 
     def __init__(self, palabraInicial):
         self.definirPalabra(palabraInicial)
         self.palabraescondida =   " ".join(["_" for x in self.palabra])
+        self.letrasUsadas = []
+        self.vidas = 6
 
     def pruebaLetra(self,letra):
-        self.verificarLetra(letra)
-        self.letrasUsadas.append(letra)
+        if (not(self.fueUsada(letra))):
+            mensaje = self.verificarLetra(letra)
+            self.letrasUsadas.append(letra)
+            return mensaje
+        else:
+            return 'USADA'
+
 
     def verificarLetra(self, a):
         posi = self.palabra.find(a)
         if (posi != -1):
+            self.setPalabraEscondida(a)
             return 'CORRECTA'
         else:
+            self.restarVida()
             return 'INCORRECTA'
         
     def verificarPalabra(self, a): 
@@ -46,4 +55,10 @@ class Ahorcado():
         return self.palabraescondida
     
     def setPalabraEscondida(self, letra):
-        #return [i for i, elemento in enumerate(lista) if elemento == palabra]
+        self.palabraescondida = ' '.join([letra if i == letra else "_" for i in self.palabra])
+
+
+#def main():
+#    palabra = 'PALABRA'
+#    juego = Ahorcado(palabra)
+#    juego.setPalabraEscondida

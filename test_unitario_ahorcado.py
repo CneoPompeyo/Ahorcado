@@ -6,29 +6,29 @@ class Test_Ahorcado(unittest.TestCase):
     def test_letra_correcta(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarLetra('A'),'CORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.pruebaLetra('A'),'CORRECTA', msg='{0}, {1}')
 
     def test_letra_incorrecta(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarLetra("C"),'INCORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.pruebaLetra("C"),'INCORRECTA', msg='{0}, {1}')
 
     def test_palabra_correcta(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarLetra(palabra),'CORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.verificarPalabra(palabra),'CORRECTA', msg='{0}, {1}')
 
     def test_palabra_incorrecta(self):
         palabra = 'PALABRA'
         palabraErronea = 'MANZANA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarLetra(palabraErronea),'INCORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.verificarPalabra(palabraErronea),'INCORRECTA', msg='{0}, {1}')
 
     def test_resta_vida(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
         juego.restarVida()
-        self.assertEqual(juego.vidas, 2, msg='{0}, {1}')
+        self.assertEqual(juego.vidas, 5, msg='{0}, {1}')
 
     def test_definir_palabra_inicio(self):
         palabra = 'PALABRA'
@@ -50,7 +50,14 @@ class Test_Ahorcado(unittest.TestCase):
     def test_mostrar_letra_correcta_en_lugar(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
+        juego.pruebaLetra('A')
         self.assertEqual(juego.getPalabraEscondida(), "_ A _ A _ _ A", msg='{0}, {1}')
+
+    def test_letra_ya_usada(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        juego.pruebaLetra('A')
+        self.assertEqual(juego.pruebaLetra('A'), 'USADA', msg='{0}, {1}')
 
 if __name__ == '__main__':
     unittest.main()
