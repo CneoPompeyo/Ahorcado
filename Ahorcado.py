@@ -15,10 +15,11 @@ class Ahorcado():
         if (not(self.fueUsada(letra))):
             mensaje = self.verificarLetra(letra)
             self.letrasUsadas.append(letra)
+            if (self.palabraescondida.replace(' ', '') == self.palabra):
+                mensaje = 'GANASTE'
             return mensaje
         else:
             return 'USADA'
-
 
     def verificarLetra(self, a):
         posi = self.palabra.find(a)
@@ -27,13 +28,16 @@ class Ahorcado():
             return 'CORRECTA'
         else:
             self.restarVida()
-            return 'INCORRECTA'
+            if (self.vidas == -1):
+                return 'PERDISTE'
+            else :
+                return 'INCORRECTA'
         
     def verificarPalabra(self, a): 
         if (self.palabra == a):
-            return 'CORRECTA'
+            return 'GANASTE'
         else:
-            return 'INCORRECTA'
+            return 'PERDISTE'
     
     def restarVida(self):
         self.vidas -= 1

@@ -16,13 +16,13 @@ class Test_Ahorcado(unittest.TestCase):
     def test_palabra_correcta(self):
         palabra = 'PALABRA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarPalabra(palabra),'CORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.verificarPalabra(palabra),'GANASTE', msg='{0}, {1}')
 
     def test_palabra_incorrecta(self):
         palabra = 'PALABRA'
         palabraErronea = 'MANZANA'
         juego = Ahorcado(palabra)
-        self.assertEqual(juego.verificarPalabra(palabraErronea),'INCORRECTA', msg='{0}, {1}')
+        self.assertEqual(juego.verificarPalabra(palabraErronea),'PERDISTE', msg='{0}, {1}')
 
     def test_resta_vida(self):
         palabra = 'PALABRA'
@@ -58,6 +58,18 @@ class Test_Ahorcado(unittest.TestCase):
         juego = Ahorcado(palabra)
         juego.pruebaLetra('A')
         self.assertEqual(juego.pruebaLetra('A'), 'USADA', msg='{0}, {1}')
+
+    def test_perder_por_vidas(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        juego.vidas = 0
+        self.assertEqual(juego.pruebaLetra('Z'), 'PERDISTE', msg='{0}, {1}')
+
+    def test_ganar_por_letra(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        juego.palabraescondida = '_ A L A B R A'
+        self.assertEqual(juego.pruebaLetra('P'), 'GANASTE', msg='{0}, {1}')
 
 if __name__ == '__main__':
     unittest.main()
