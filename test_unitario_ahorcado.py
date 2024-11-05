@@ -86,5 +86,17 @@ class Test_Ahorcado(unittest.TestCase):
         juego.pruebaLetra('S')
         self.assertEqual(juego.getLetrasUsadas(), ['S', 'A'], msg='{0}, {1}')
 
+    def test_resetear_juego(self):
+        palabra = 'PALABRA'
+        juego = Ahorcado(palabra)
+        juego.pruebaLetra('S')
+        juego.pruebaLetra('A')
+        juego.pruebaLetra('S')
+        juego.reset()
+        self.assertEqual(juego.getPalabra(),'' , msg='{0}, {1}')
+        self.assertEqual(juego.getPalabraEscondida(),'' , msg='{0}, {1}')
+        self.assertEqual(juego.getVidas(),6 , msg='{0}, {1}')
+        self.assertEqual(juego.getLetrasUsadas(),[], msg='{0}, {1}')
+
 if __name__ == '__main__':
     unittest.main()
