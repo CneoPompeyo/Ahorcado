@@ -58,8 +58,9 @@ class Ahorcado():
     def getPalabraEscondida(self):
         return self.palabraescondida
     
+    
     def setPalabraEscondida(self, letra):
-        self.palabraescondida = ' '.join([letra if i == letra else "_" for i in self.palabra])
+        self.palabraescondida = ' '.join([i if (i == letra or self.palabraescondida.find(i)!=-1) else "_" for i in self.palabra])
 
 
 #def main():
