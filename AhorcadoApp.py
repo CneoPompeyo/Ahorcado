@@ -101,6 +101,13 @@ class AhorcadoApp:
         self.vidasLabel.pack_forget()
         self.resetButton.pack_forget()
 
+        #Habilitar botones
+        self.letraInput.config(state="normal")
+        self.adivinarLetraButton.config(state="normal")
+        self.palabraCompletaInput.config(state="normal")
+        self.adivinarPalabraButton.config(state="normal")
+
+
         #Limpiar campos
         self.palabraInput.delete(0, tk.END)
         self.letraInput.delete(0, tk.END)
