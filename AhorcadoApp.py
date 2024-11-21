@@ -119,6 +119,7 @@ class AhorcadoApp:
         self.startButton.pack(pady=10)
 
 #Ventana principal
-root = tk.Tk()
-app = AhorcadoApp(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = AhorcadoApp(root)
+    root.mainloop()
