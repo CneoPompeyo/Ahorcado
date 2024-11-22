@@ -25,27 +25,13 @@ def test_ganar_letra(iniciar_aplicacion):
     pag.click(pag.center(startButton))
 
     letraInput = pag.locateOnScreen("letra_input.png")
-    pag.click(pag.center(letraInput))
-    pag.write("A")
-
+    
     letraButton = pag.locateOnScreen("adivinar_letra.png")
-    pag.click(pag.center(letraButton))
 
-    pag.click(pag.center(letraInput))
-    pag.write("P")
-    pag.click(pag.center(letraButton))
-
-    pag.click(pag.center(letraInput))
-    pag.write("L")
-    pag.click(pag.center(letraButton))
-
-    pag.click(pag.center(letraInput))
-    pag.write("B")
-    pag.click(pag.center(letraButton))
-
-    pag.click(pag.center(letraInput))
-    pag.write("R")
-    pag.click(pag.center(letraButton))
+    for letra in "PALBR":
+        pag.click(pag.center(letraInput))
+        pag.write(letra)
+        pag.click(pag.center(letraButton))
 
     ganasteMsg = pag.locateOnScreen("ganaste.png")
     
@@ -55,7 +41,7 @@ def test_adivinar_palabra(iniciar_aplicacion):
     textInput = pag.locateOnScreen("textInput.png")
     pag.click(pag.center(textInput))
     pag.write("PALABRA")
-    
+
     startButton = pag.locateOnScreen('empezar_juego.png')
     pag.click(pag.center(startButton))
 
