@@ -54,11 +54,12 @@ class Ahorcado():
         self.vidas = x
    
     def fueUsada(self,letra):
-        try:
+        '''try:
             posicion = self.getLetrasUsadas().index(letra)
             return True
         except ValueError:
-            return False
+            return False'''
+        return letra in self.getLetrasUsadas()
         
     def getPalabraEscondida(self):
         return self.palabraescondida

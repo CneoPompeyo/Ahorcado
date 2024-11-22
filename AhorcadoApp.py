@@ -2,7 +2,8 @@ import tkinter as tk
 from Ahorcado import Ahorcado
 
 class AhorcadoApp:
-    def __init__(self, root):
+    def __init__(self):
+        root = tk.Tk()
         self.root = root
         self.root.title("Ahorcado")
         
@@ -10,10 +11,11 @@ class AhorcadoApp:
         label = tk.Label(root, text="Ingresar palabra: ", font=("Helvetica", 14))
         label.pack(pady=10)
         
-        self.palabraInput = tk.Entry(root, font=("Helvetica", 14), show="*")
+        self.palabraInput = tk.Entry(root, font=("Helvetica", 14))#, show="")
         self.palabraInput.pack(pady=5)
         
-        self.startButton = tk.Button(root, text="Empezar juego", command=self.start)
+
+        self.startButton = tk.Button(root, text="Empezar juego", command=lambda :self.start())
         self.startButton.pack(pady=10)
 
         #Ocultar ventana principal
@@ -23,7 +25,7 @@ class AhorcadoApp:
         """Oculta los elementos de la interfaz del juego hasta que se ingrese la palabra secreta."""
         self.palabraLabel = tk.Label(self.root, font=("Helvetica", 24))
         self.letraInput = tk.Entry(self.root, font=("Helvetica", 18), width=5)
-        self.adivinarLetraButton = tk.Button(self.root, text="Adivinar Letra", command=self.adivinarLetra)
+        self.adivinarLetraButton = tk.Button(self.root, text="Adivinar Letra", command=lambda :self.adivinarLetra())
         self.palabraCompletaInput = tk.Entry(self.root, font=("Helvetica", 18), width=20)
         self.adivinarPalabraButton = tk.Button(self.root, text="Adivinar Palabra", command=self.adivinarPalabra)
         self.resetButton = tk.Button(self.root, text="Reiniciar", command=self.reset )
@@ -118,7 +120,8 @@ class AhorcadoApp:
         self.palabraInput.pack(pady=5)
         self.startButton.pack(pady=10)
 
-#Ventana principal
-root = tk.Tk()
-app = AhorcadoApp(root)
-root.mainloop()
+    def loop(self):
+        self.root.mainloop()
+
+    def esperar(self,n):
+        self.root.after(n*1000)
