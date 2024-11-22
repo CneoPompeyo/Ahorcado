@@ -1,56 +1,71 @@
 import pyautogui as pag
 import subprocess as sp
-import unittest
+import pytest
 import time
-import os
-import signal
 
 
-class Test_AhorcadoApp(unittest.TestCase):
+@pytest.fixture(scope="function")
 
-    def setUp(self):
-        self.process = sp.Popen(['python', 'AhorcadoApp.py'], stdout=sp.PIPE, stdder=sp.PIPE)
-        time.sleep(2)
+def iniciar_aplicacion():
+    """Inicia la aplicación antes de cada prueba y la cierra después."""
+    print("iniciando")
+    process = sp.Popen(['python', 'AhorcadoApp.py'])
+    time.sleep(3)  # Espera para que la aplicación se inicie completamente
+    yield process
+    process.terminate()
+    process.wait()
+    time.sleep(2)
+
+def test_ganar_letra(iniciar_aplicacion):
+    textInput = pag.locateOnScreen('textInput.png')
+    pag.click(pag.center(textInput))
+    pag.write("PALABRA")
+
+    startButton = pag.locateOnScreen('empezar_juego.png')
+    pag.click(pag.center(startButton))
+
+    letraInput = pag.locateOnScreen("letra_input.png")
+    pag.click(pag.center(letraInput))
+    pag.write("A")
+
+    letraButton = pag.locateOnScreen("adivinar_letra.png")
+    pag.click(pag.center(letraButton))
+
+    pag.click(pag.center(letraInput))
+    pag.write("P")
+    pag.click(pag.center(letraButton))
+
+    pag.click(pag.center(letraInput))
+    pag.write("L")
+    pag.click(pag.center(letraButton))
+
+    pag.click(pag.center(letraInput))
+    pag.write("B")
+    pag.click(pag.center(letraButton))
+
+    pag.click(pag.center(letraInput))
+    pag.write("R")
+    pag.click(pag.center(letraButton))
+
+    ganasteMsg = pag.locateOnScreen("ganaste.png")
     
-    def tearDown(self):
-        if self.process.poll() is None:
-            os.kill(self.process.pid, signal.SIGTERM)
-            time.sleep(1)
+    assert ganasteMsg is not pag.ImageNotFoundException
 
-    def test_ganar_letra(self):
-        textInput = pag.locateOnScreen('textInput.png')
-        pag.click(pag.center(textInput))
-        pag.write("PALABRA")
+def test_adivinar_palabra(iniciar_aplicacion):
+    textInput = pag.locateOnScreen("textInput.png")
+    pag.click(pag.center(textInput))
+    pag.write("PALABRA")
+    
+    startButton = pag.locateOnScreen('empezar_juego.png')
+    pag.click(pag.center(startButton))
 
-        startButton = pag.locateOnScreen('empezar_juego.png')
-        pag.click(pag.center(startButton))
+    palabraInput = pag.locateOnScreen("palabra_input.png")
+    pag.click(pag.center(palabraInput))
+    pag.write("PALABRA")
 
-        letraInput = pag.locateOnScreen("letra_input.png")
-        pag.click(pag.center(letraInput))
-        pag.write("A")
+    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
+    pag.click(pag.center(adivinarPalabraButton))
 
-        letraButton = pag.locateOnScreen("adivinar_letra.png")
-        pag.click(pag.center(letraButton))
+    ganasteMsg = pag.locateOnScreen("ganaste.png")
 
-        pag.click(pag.center(letraInput))
-        pag.write("P")
-        pag.click(pag.center(letraButton))
-
-        pag.click(pag.center(letraInput))
-        pag.write("L")
-        pag.click(pag.center(letraButton))
-
-        pag.click(pag.center(letraInput))
-        pag.write("B")
-        pag.click(pag.center(letraButton))
-
-        pag.click(pag.center(letraInput))
-        pag.write("R")
-        pag.click(pag.center(letraButton))
-
-        ganasteMsg = pag.locateOnScreen("ganaste.png")
-        self.assertIsNotNone(ganasteMsg)
-
-
-if __name__ == '__main__':
-    unittest.main()
+    assert ganasteMsg is not None
