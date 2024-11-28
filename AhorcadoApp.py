@@ -5,7 +5,8 @@ class AhorcadoApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Ahorcado")
-        
+                  
+
         #Ventana de inicio
         label = tk.Label(root, text="Ingresar palabra: ", font=("Helvetica", 14))
         label.pack(pady=10)

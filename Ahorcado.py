@@ -7,11 +7,6 @@ class Ahorcado():
 
     def __init__(self, palabraInicial):
         self.reset(palabraInicial)
-        #self.setVidas(6)
-        #self.definirPalabra(palabraInicial)
-        #self.setLetrasUsadas([])
-        #self.getPalabraEscondida =   " ".join(["_" for x in self.getPalabra()])
-        #self.setPalabraEscondida('')
 
     def pruebaLetra(self,letra):
         if (not(self.fueUsada(letra))):
@@ -54,11 +49,8 @@ class Ahorcado():
         self.vidas = x
    
     def fueUsada(self,letra):
-        try:
-            posicion = self.getLetrasUsadas().index(letra)
-            return True
-        except ValueError:
-            return False
+        return letra in self.getLetrasUsadas()
+
         
     def getPalabraEscondida(self):
         return self.palabraescondida
