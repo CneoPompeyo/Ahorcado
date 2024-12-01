@@ -24,6 +24,7 @@ jobs:
         sudo apt-get install gnome-screenshot
         pip install pytest
         pip install xlib
+        pip install opencv-python
         pip install -Iv pillow==11.0.0
         pip install -Iv PyScreeze==1.0.1
         pip install -Iv pyautogui==0.9.54
