@@ -25,12 +25,14 @@ jobs:
         pip install pytest
         pip install pyautogui
         pip install --no-cache-dir -r requirements.txt
-
+        pip install behave
+        
     - name: Run unit tests for ahorcado logic
       run: |
         sudo apt-get install xvfb python3-tk python3-dev
         pip install pytest pytest-cov
-        xvfb-run -a -s "-screen 0 640x480x8" pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
+        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
+        xvfb-run -a -s "-screen 0 640x480x8" behave
 
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
