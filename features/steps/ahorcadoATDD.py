@@ -7,7 +7,7 @@ import os
 
 @given('la palabra es {palabraTest}')
 def step_impl(context,palabraTest):
-    textInput = pag.locateOnScreen("textInput.png")
+    textInput = pag.locateOnScreen("Ahorcado/textInput.png")
     pag.click(pag.center(textInput))
     pag.write(palabraTest)
 
