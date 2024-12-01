@@ -35,8 +35,8 @@ jobs:
       run: |
         sudo apt-get install xvfb python3-tk python3-dev
         pip install pytest pytest-cov
-        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
-        xvfb-run -a -s "-screen 0 640x480x8" behave
+        xvfb-run -a -s "-screen 0 640x480x8" python pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py behave
+        xvfb-run -a -s "-screen 0 640x480x8" python behave
 
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
