@@ -44,7 +44,7 @@ jobs:
 
     - name: Run Acceptance tests for Ahorcado App
       run: |
-        baheve -v
+        python baheve -v
       #        sudo apt-get install xvfb python3-tk python3-dev
       #        xvfb-run -a -s "-screen 0 640x480x8" behave -v
 
