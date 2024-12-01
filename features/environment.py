@@ -1,10 +1,8 @@
 from behave import *
 import pyautogui as pag
 import subprocess as sp
-import pytest
 import time
 import os
-import pygetwindow as gw
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
