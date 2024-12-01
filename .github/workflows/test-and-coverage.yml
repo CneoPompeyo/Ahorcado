@@ -1,0 +1,45 @@
+name: Python Testing and Coverage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install coverage pytest pyautogui
+        
+    - name: Run logic tests with coverage
+      run: |
+        coverage run -m unittest discover
+        coverage report
+
+    - name: Run interface tests with coverage
+      run: |
+        coverage run -m pytest
+        coverage report
+
+    - name: Combine coverage reports (optional)
+      run: |
+        coverage combine
+        coverage report
+        coverage xml
+
+    - name: Upload coverage to Codecov (optional)
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

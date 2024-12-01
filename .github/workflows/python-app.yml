@@ -1,5 +1,4 @@
-name: Run Unit Tests on Specific File
-
+name: Testing
 on:
   push:
     branches:
