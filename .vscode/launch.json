@@ -6,7 +6,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "behave",
-            "args": ["Ahorcado/features"],
+            "args": ["features"],
         }
     ]
 }

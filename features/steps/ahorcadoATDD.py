@@ -8,7 +8,7 @@ import pygetwindow as gw
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
-    script_path = os.path.abspath("Ahorcado/AhorcadoApp.py")
+    script_path = os.path.abspath("AhorcadoApp.py")
     
     process = sp.Popen(['python', script_path], stdout=sp.PIPE, stderr=sp.PIPE)
     time.sleep(1)  # Tiempo de espera para cargar la aplicación
@@ -40,24 +40,24 @@ def cerrar_aplicacion(process):
 def step_impl(context,palabraTest):
     context.process = iniciar_aplicacion()
     
-    textInput = pag.locateOnScreen("Ahorcado/textInput.png")
+    textInput = pag.locateOnScreen("textInput.png")
     pag.click(pag.center(textInput))
     pag.write(palabraTest)
 
-    startButton = pag.locateOnScreen("Ahorcado/empezar_juego.png")
+    startButton = pag.locateOnScreen("empezar_juego.png")
 
     pag.click(pag.center(startButton))
 
 @when('jugador ingresa {palabraTest}')
 def step_impl(context,palabraTest):
     # Localizar el campo de entrada para la palabra
-    palabraInput = pag.locateOnScreen("Ahorcado/palabra_input.png")
+    palabraInput = pag.locateOnScreen("palabra_input.png")
 
     pag.click(pag.center(palabraInput))
     pag.write(palabraTest)
 
     # Localizar el botón para adivinar la palabra
-    adivinarPalabraButton = pag.locateOnScreen("Ahorcado/adivinar_palabra.png")
+    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
 
     pag.click(pag.center(adivinarPalabraButton))
 
@@ -67,8 +67,8 @@ def step_impl(context,palabraTest):
 def step_impl(context,listaLetras):
     lista = listaLetras.split(',')
 
-    letraInput = pag.locateOnScreen("Ahorcado/letra_input.png")
-    letraButton = pag.locateOnScreen("Ahorcado/adivinar_letra.png")
+    letraInput = pag.locateOnScreen("letra_input.png")
+    letraButton = pag.locateOnScreen("adivinar_letra.png")
     for l in lista:
         pag.click(pag.center(letraInput))
         pag.write(l)
@@ -76,7 +76,7 @@ def step_impl(context,listaLetras):
 
 @then('se muestra pantalla {mensaje}')
 def step_impl(context,mensaje):
-    Msg = pag.locateOnScreen(f'Ahorcado/{mensaje}.png')
+    Msg = pag.locateOnScreen(f'{mensaje}.png')
 
     assert Msg is not pag.ImageNotFoundException
     cerrar_aplicacion(context.process)
@@ -84,11 +84,11 @@ def step_impl(context,mensaje):
 @given('se muestra pantalla {mensaje}')
 def step_impl(context,mensaje):
     #context.process = iniciar_aplicacion()>
-    Msg = pag.locateOnScreen(f'Ahorcado/{mensaje}.png')
+    Msg = pag.locateOnScreen(f'{mensaje}.png')
 
     assert Msg is not pag.ImageNotFoundException
 
 @when('jugador clickea en {boton}')
 def step_impl(context,boton):
-    Button = pag.locateOnScreen(f'Ahorcado/{boton}.png')
+    Button = pag.locateOnScreen(f'{boton}.png')
     pag.click(pag.center(Button))
