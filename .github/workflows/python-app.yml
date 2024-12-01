@@ -18,12 +18,25 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install dependencies for UT
       run: |
         python -m pip install --upgrade pip
+        pip install pytest
+
+    - name: Run unit tests for ahorcado logic
+      run: |
+        pip install pytest pytest-cov
+        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
+        
+    - name: Upload results to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Install dependencies for AT
+      run: |
         sudo apt install at-spi2-core
         sudo apt-get install gnome-screenshot
-        pip install pytest
         pip install xlib
         pip install opencv-python
         pip install -Iv pillow==11.0.0
@@ -31,17 +44,8 @@ jobs:
         pip install -Iv pyautogui==0.9.54
         pip install behave
 
-    - name: Run unit tests for ahorcado logic
-      run: |
-        pip install pytest pytest-cov
-        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
-
     - name: Run Acceptance tests for Ahorcado App
       run: |
         sudo apt-get install xvfb python3-tk python3-dev
         xvfb-run -a -s "-screen 0 640x480x8" behave -v
 
-    - name: Upload results to Codecov
-      uses: codecov/codecov-action@v4
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
