@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -35,8 +35,6 @@ jobs:
 
     - name: Install dependencies for AT
       run: |
-        sudo apt install at-spi2-core
-        sudo apt-get install gnome-screenshot
         pip install xlib
         pip install opencv-python
         pip install -Iv pillow==11.0.0
