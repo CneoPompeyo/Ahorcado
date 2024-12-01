@@ -23,6 +23,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         pip install xlib
+        pip install PyScreeze pillow
         pip install -Iv pyautogui==0.9.39
         pip install behave
 
