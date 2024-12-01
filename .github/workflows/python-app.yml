@@ -21,6 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        sudo apt install at-spi2-core
         sudo apt-get install gnome-screenshot
         pip install pytest
         pip install xlib
