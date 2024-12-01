@@ -6,39 +6,33 @@ import time
 import os
 import pygetwindow as gw
 
-def iniciar_aplicacion():
-    print("Iniciando la aplicación...")
-    script_path = os.path.abspath("AhorcadoApp.py")
+# @fixture
+# def iniciar_aplicacion():
+#     print("Iniciando la aplicación...")
+#     script_path = os.path.abspath("AhorcadoApp.py")
     
-    process = sp.Popen(['python', script_path], stdout=sp.PIPE, stderr=sp.PIPE)
-    time.sleep(1)  # Tiempo de espera para cargar la aplicación
-    
-    # Verifica si la ventana está abierta
-    """ ventana_juego = None
-    for ventana in gw.getAllTitles():
-        if "Ahorcado" in ventana:
-            ventana_juego = ventana
-            break """
-    
-    # if ventana_juego is None:
-    #     process.terminate()
-    #     print("Error: La ventana del juego no se inició correctamente.")
-    #     return None
+#     process = sp.Popen(['python', script_path], stdout=sp.PIPE, stderr=sp.PIPE)
+#     time.sleep(1)  # Tiempo de espera para cargar la aplicación
+#     print("Aplicación iniciada correctamente.")
+#     return process
 
-    print("Aplicación iniciada correctamente.")
-    return process
+# def cerrar_aplicacion(process):
+#     #Cierra la aplicación después de la prueba.
+#     if process:
+#         process.terminate()
+#         process.wait()
+#         print("Aplicación cerrada.")
 
+# def before_scenario(context,scenario):
+#     context.process = use_fixture(iniciar_aplicacion(), context)
 
-def cerrar_aplicacion(process):
-    """Cierra la aplicación después de la prueba."""
-    if process:
-        process.terminate()
-        process.wait()
-        print("Aplicación cerrada.")
+# def after_scenario(context,scenario):
+#     use_fixture(cerrar_aplicacion(context.process),context)
+
 
 @given('la palabra es {palabraTest}')
 def step_impl(context,palabraTest):
-    context.process = iniciar_aplicacion()
+    #context.process = iniciar_aplicacion()
     
     textInput = pag.locateOnScreen("textInput.png")
     pag.click(pag.center(textInput))
@@ -79,7 +73,7 @@ def step_impl(context,mensaje):
     Msg = pag.locateOnScreen(f'{mensaje}.png')
 
     assert Msg is not pag.ImageNotFoundException
-    cerrar_aplicacion(context.process)
+    #cerrar_aplicacion(context.process)
 
 @given('se muestra pantalla {mensaje}')
 def step_impl(context,mensaje):
