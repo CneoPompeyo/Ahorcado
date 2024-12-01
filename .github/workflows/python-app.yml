@@ -25,7 +25,7 @@ jobs:
         pip install python3_xlib
         pip install -Iv pyautogui==0.9.39
         pip install behave
-        
+
     - name: Run unit tests for ahorcado logic
       run: |
         sudo apt-get install xvfb python3-tk python3-dev
