@@ -21,10 +21,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        sudo apt install gnome-screenshot
+        pip install gnome-screenshot
         pip install pytest
         pip install xlib
-        pip install pillow
+        pip install -Iv pillow==11.0.0
+        pip install -Iv PyScreeze==1.0.1
         pip install -Iv pyautogui==0.9.54
         pip install behave
 
