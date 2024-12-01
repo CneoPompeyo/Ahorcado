@@ -22,7 +22,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pytest
-        sudo apt-get install python-xlib
+        pip install -Iv python-xlib==0.25
         pip install -Iv pyautogui==0.9.39
         pip install behave
 
