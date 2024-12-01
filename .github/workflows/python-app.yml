@@ -12,6 +12,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    
+    - name: Run CTRF annotations
+      run: npx github-actions-ctrf path-to-your-ctrf-report.json
+      if: always()
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -45,6 +49,7 @@ jobs:
     - name: Run Acceptance tests for Ahorcado App
       run: |
         behave D:\a\Ahorcado\Ahorcado\features
-      #        sudo apt-get install xvfb python3-tk python3-dev
-      #        xvfb-run -a -s "-screen 0 640x480x8" behave -v
 
+    - name: Publish CTRF Test Summary Results
+      run: npx github-actions-ctrf summary path-to-your-ctrf-report.json
+      if: always()
