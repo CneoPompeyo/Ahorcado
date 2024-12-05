@@ -44,13 +44,13 @@ def adivinaPalabra(palabraTest):
 @fixture
 def before_scenario(context,scenario):
     context.process = iniciar_aplicacion()
-    time.sleep(2)
+    #time.sleep(2)
 
 def after_scenario(context,scenario):
     cerrar_aplicacion(context.process)
 
 def before_step(context,step):
-    time.sleep(1)
+    #time.sleep(1)
     if ('Reiniciar juego luego de' in context.scenario.name):
         if (step.step_type == 'given' and 'se muestra pantalla' in step.name):
             palabraInicial('PALABRA')
