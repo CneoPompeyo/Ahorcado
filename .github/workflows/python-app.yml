@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:      
     - name: Checkout repository
@@ -41,11 +41,10 @@ jobs:
         pip install -Iv PyScreeze==1.0.1
         pip install -Iv pyautogui==0.9.54
         pip install behave
-        sudo apt-get install xvfb
 
     - name: Run Acceptance tests for Ahorcado App
       run: |
-        xvfb-run -a -s "-screen 0 640x480x8" behave D:\a\Ahorcado\Ahorcado\features --junit
+        behave D:\a\Ahorcado\Ahorcado\features --junit
         #python -c "import pyautogui; pyautogui.screenshot('debug_screenshot.png')"
           
     - name: Upload Debug Screenshot
