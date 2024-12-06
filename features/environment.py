@@ -45,6 +45,7 @@ def adivinaPalabra(palabraTest):
 @fixture
 def before_scenario(context,scenario):
     context.process = iniciar_aplicacion()
+    pag.screenshot('debug_screenshot.png')
     sleep(1)
 
 def after_scenario(context,scenario):
