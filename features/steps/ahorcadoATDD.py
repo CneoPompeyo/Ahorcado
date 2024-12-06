@@ -9,6 +9,7 @@ from time import sleep
 def step_impl(context,palabraTest):
     textInput = pag.locateOnScreen("textInput.png")
     pag.click(pag.center(textInput))
+    sleep(1)
     pag.write(palabraTest)
 
     startButton = pag.locateOnScreen("empezar_juego.png")
