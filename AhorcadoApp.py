@@ -12,6 +12,7 @@ class AhorcadoApp:
         label.pack(pady=10)
         
         self.palabraInput = tk.Entry(root, font=("Helvetica", 14), show="*")
+        #self.palabraInput.insert(0, "Ingrese aquí")
         self.palabraInput.pack(pady=5)
         
         self.startButton = tk.Button(root, text="Empezar juego", command=self.start)

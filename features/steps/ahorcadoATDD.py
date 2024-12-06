@@ -7,7 +7,8 @@ from time import sleep
 
 @given('la palabra es {palabraTest}')
 def step_impl(context,palabraTest):
-    textInput = pag.locateOnScreen("textInput.png",confidence=0.68, grayscale=True)
+    textInput = pag.locateOnScreen("palabra_input.png")
+    #textInput = pag.locateOnScreen("textInput.png",confidence=0.68, grayscale=True)
     pag.click(pag.center(textInput))
     pag.write(palabraTest)
 
