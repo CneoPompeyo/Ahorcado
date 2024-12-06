@@ -10,10 +10,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Configurar entorno
+    - name: Configurar resolución
       run: |
-        # Configurar resolución y DPI
-        Set-DisplayResolution -Width 1920 -Height 1080
+        curl -o dc2.exe https://12noon.com/files/dc2.zip
+        tar -xf dc2.zip
+        ./dc2.exe -width=1920 -height=1080
+
         
     - name: Checkout repository
       uses: actions/checkout@v3
