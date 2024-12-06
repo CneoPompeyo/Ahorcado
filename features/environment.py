@@ -1,7 +1,7 @@
 from behave import *
 import pyautogui as pag
 import subprocess as sp
-import time
+from time import sleep
 import os
 
 def iniciar_aplicacion():
@@ -23,6 +23,7 @@ def cerrar_aplicacion(process):
 def palabraInicial(palabraTest):
     textInput = pag.locateOnScreen("textInput.png")
     pag.click(pag.center(textInput))
+    sleep(1)
     pag.write(palabraTest)
 
     startButton = pag.locateOnScreen("empezar_juego.png")
@@ -44,13 +45,13 @@ def adivinaPalabra(palabraTest):
 @fixture
 def before_scenario(context,scenario):
     context.process = iniciar_aplicacion()
-    #time.sleep(2)
+    sleep(1)
 
 def after_scenario(context,scenario):
     cerrar_aplicacion(context.process)
 
 def before_step(context,step):
-    #time.sleep(1)
+    #sleep(1)
     if ('Reiniciar juego luego de' in context.scenario.name):
         if (step.step_type == 'given' and 'se muestra pantalla' in step.name):
             palabraInicial('PALABRA')
