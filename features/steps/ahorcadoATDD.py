@@ -2,12 +2,12 @@ from behave import *
 import pyautogui as pag
 import subprocess as sp
 import pytest
-import time
-import os
+from time import sleep
+
 
 @given('la palabra es {palabraTest}')
 def step_impl(context,palabraTest):
-    textInput = pag.locateOnScreen("textInput.png",confidence=0.98)
+    textInput = pag.locateOnScreen("textInput.png",confidence=0.98, grayscale=True)
     pag.click(pag.center(textInput))
     pag.write(palabraTest)
 
