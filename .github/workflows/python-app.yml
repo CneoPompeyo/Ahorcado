@@ -14,7 +14,6 @@ jobs:
       run: |
         # Configurar resolución y DPI
         Set-DisplayResolution -Width 1920 -Height 1080
-        Set-ProcessDPIAware
         
     - name: Checkout repository
       uses: actions/checkout@v3
