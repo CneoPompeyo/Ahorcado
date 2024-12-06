@@ -9,14 +9,7 @@ jobs:
   test:
     runs-on: windows-latest
 
-    steps:
-    - name: Configurar resolución
-      run: |
-        curl -o dc2.exe https://12noon.com/files/dc2.zip
-        tar -xf dc2.zip
-        ./dc2.exe -width=1920 -height=1080
-
-        
+    steps:      
     - name: Checkout repository
       uses: actions/checkout@v3
     
@@ -52,3 +45,10 @@ jobs:
     - name: Run Acceptance tests for Ahorcado App
       run: |
         behave D:\a\Ahorcado\Ahorcado\features --junit
+        python -c "import pyautogui; pyautogui.screenshot('debug_screenshot.png')"
+          
+    - name: Upload Debug Screenshot
+      uses: actions/upload-artifact@v3
+      with:
+        name: debug_screenshot
+        path: debug_screenshot.png
