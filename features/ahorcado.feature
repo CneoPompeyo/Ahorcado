@@ -17,12 +17,12 @@ Feature: Ahorcado
   Scenario: Perder el juego intentando palabra entera
     Given la palabra es PALABRA
     When jugador ingresa MANZANA
-    Then se muestra mensaje "perdiste"
+    Then se muestra mensaje "iniciar"
 
   Scenario: Reiniciar juego luego de perder
     Given se muestra mensaje "perdiste"
     When jugador clickea en reiniciar
-    Then se muestra mensaje "empezar_juego"
+    Then se muestra mensaje "iniciar"
 
   Scenario: Quedarse sin vidas
     Given la palabra es PALABRA

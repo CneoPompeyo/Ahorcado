@@ -10,13 +10,10 @@ from selenium.webdriver.chrome.options import Options
 
 from Ahorcado import Ahorcado
 
-def esperarElemento(dr,id,tag=None):
+def esperarElemento(dr,id):
     try:
         wait = WebDriverWait(dr, 5)  # Tiempo máximo de espera: 5 segundos
-        if (tag!="p"):
-            elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
-        else:
-            elemento = wait.until(EC.visibility_of_element_located((By.ID, id)))
+        elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
         return elemento
     except StaleElementReferenceException:
         elemento = WebDriverWait(dr, timeout=10, ignored_exceptions=StaleElementReferenceException).until(EC.presence_of_element_located((By.ID, id)))

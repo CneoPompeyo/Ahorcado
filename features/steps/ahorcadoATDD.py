@@ -30,10 +30,7 @@ def step_impl(context,listaLetras):
 def step_impl(context,mensaje,valor):
     dr = context.driver
     print("Buscando mensaje: ", mensaje)
-    if (valor!='empezar_juego'):
-        Msg = esperarElemento(dr,mensaje)
-    else:
-        Msg = esperarElemento(dr,mensaje,'p')
+    Msg = esperarElemento(dr,mensaje)
     print("Encontrado:", Msg)
     assert Msg.text is not mensaje
 
