@@ -5,14 +5,17 @@ class AhorcadoApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Ahorcado")
-        
+                  
+
         #Ventana de inicio
         label = tk.Label(root, text="Ingresar palabra: ", font=("Helvetica", 14))
         label.pack(pady=10)
         
-        self.palabraInput = tk.Entry(root, font=("Helvetica", 14), show="*")
+        self.palabraInput = tk.Entry(root, font=("Helvetica", 14))#, show="*")
+        self.palabraInput.insert(0, "Ingrese aquí")
         self.palabraInput.pack(pady=5)
-        
+        self.palabraInput.bind("<FocusIn>", on_entry_click)
+
         self.startButton = tk.Button(root, text="Empezar juego", command=self.start)
         self.startButton.pack(pady=10)
 
@@ -117,6 +120,11 @@ class AhorcadoApp:
         #Mostrar ingreso de nuevo
         self.palabraInput.pack(pady=5)
         self.startButton.pack(pady=10)
+
+
+def on_entry_click(event):
+   if event.widget.get() == "Ingrese aquí":
+      event.widget.delete(0, tk.END)
 
 #Ventana principal
 if __name__ == "__main__":

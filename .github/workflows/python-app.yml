@@ -7,30 +7,63 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
-    steps:
+    steps:      
     - name: Checkout repository
-      uses: actions/checkout@v3
-
+      uses: actions/checkout@v4
+    
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: Install dependencies for UT
       run: |
         python -m pip install --upgrade pip
         pip install pytest
-        pip install -Iv pyautogui==0.9.39
 
     - name: Run unit tests for ahorcado logic
       run: |
         pip install pytest pytest-cov
         pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
-
-
+        
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Install dependencies for AT
+      run: |
+        pip install xlib
+        pip install opencv-python
+        pip install -Iv pillow==11.0.0
+        pip install -Iv PyScreeze==1.0.1
+        pip install -Iv pyautogui==0.9.54
+        pip install behave
+
+    - name: Run Acceptance tests for Ahorcado App
+      run: |
+        behave C:\Users\leand\Documents\facultad\Agiles\Ahorcado\features --junit
+        #python -c "import pyautogui; pyautogui.screenshot('debug_screenshot.png')"
+          
+    - name: Install dependencies for static analysis
+      run: |
+        pip install black pylint
+
+    - name: Run formatter
+      run: |
+        black --check C:\Users\leand\Documents\facultad\Agiles\Ahorcado\
+      continue-on-error: true
+
+    - name: Run static analysis
+      run: |
+        pylint C:\Users\leand\Documents\facultad\Agiles\Ahorcado\
+      continue-on-error: true
+
+    - name: Upload Pylint Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pylint-report
+        path: pylint-report.txt
+              

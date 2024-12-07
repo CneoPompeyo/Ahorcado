@@ -9,7 +9,7 @@ import time
 def iniciar_aplicacion():
     """Inicia la aplicación antes de cada prueba y la cierra después."""
     print("iniciando")
-    process = sp.Popen(['python', 'AhorcadoApp.py'])
+    process = sp.Popen(['python', 'Ahorcado/AhorcadoApp.py'])
     time.sleep(1) #Tiempo de espera
     yield process
     process.terminate()
@@ -17,80 +17,80 @@ def iniciar_aplicacion():
     time.sleep(2)
 
 def test_ganar_letra(iniciar_aplicacion):
-    textInput = pag.locateOnScreen('textInput.png')
+    textInput = pag.locateOnScreen('Ahorcado/textInput.png')
     pag.click(pag.center(textInput))
     pag.write("PALABRA")
 
-    startButton = pag.locateOnScreen('empezar_juego.png')
+    startButton = pag.locateOnScreen('Ahorcado/empezar_juego.png')
     pag.click(pag.center(startButton))
 
-    letraInput = pag.locateOnScreen("letra_input.png")
+    letraInput = pag.locateOnScreen("Ahorcado/letra_input.png")
     
-    letraButton = pag.locateOnScreen("adivinar_letra.png")
+    letraButton = pag.locateOnScreen("Ahorcado/adivinar_letra.png")
 
     for letra in "PALBR":
         pag.click(pag.center(letraInput))
         pag.write(letra)
         pag.click(pag.center(letraButton))
 
-    ganasteMsg = pag.locateOnScreen("ganaste.png")
+    ganasteMsg = pag.locateOnScreen("Ahorcado/ganaste.png")
     
     assert ganasteMsg is not pag.ImageNotFoundException
 
 def test_adivinar_palabra(iniciar_aplicacion):
-    textInput = pag.locateOnScreen("textInput.png")
+    textInput = pag.locateOnScreen("Ahorcado/textInput.png")
     pag.click(pag.center(textInput))
     pag.write("PALABRA")
 
-    startButton = pag.locateOnScreen('empezar_juego.png')
+    startButton = pag.locateOnScreen('Ahorcado/empezar_juego.png')
     pag.click(pag.center(startButton))
 
-    palabraInput = pag.locateOnScreen("palabra_input.png")
+    palabraInput = pag.locateOnScreen("Ahorcado/palabra_input.png")
     pag.click(pag.center(palabraInput))
     pag.write("PALABRA")
 
-    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
+    adivinarPalabraButton = pag.locateOnScreen("Ahorcado/adivinar_palabra.png")
     pag.click(pag.center(adivinarPalabraButton))
 
-    ganasteMsg = pag.locateOnScreen("ganaste.png")
+    ganasteMsg = pag.locateOnScreen("Ahorcado/ganaste.png")
 
     assert ganasteMsg is not pag.ImageNotFoundException
 
 def test_perder_por_letra(iniciar_aplicacion):
-    textInput = pag.locateOnScreen("textInput.png")
+    textInput = pag.locateOnScreen("Ahorcado/textInput.png")
     pag.click(pag.center(textInput))
     pag.write("PALABRA")
 
-    startButton = pag.locateOnScreen("empezar_juego.png")
+    startButton = pag.locateOnScreen("Ahorcado/empezar_juego.png")
     pag.click(pag.center(startButton))
     
-    letraInput = pag.locateOnScreen("letra_input.png")
-    letraButton = pag.locateOnScreen("adivinar_letra.png")
+    letraInput = pag.locateOnScreen("Ahorcado/letra_input.png")
+    letraButton = pag.locateOnScreen("Ahorcado/adivinar_letra.png")
 
     for letra in "TFDGHJK":
         pag.click(pag.center(letraInput))
         pag.write(letra)
         pag.click(pag.center(letraButton))
 
-    perdisteMsg = pag.locateOnScreen("perdiste.png")
+    perdisteMsg = pag.locateOnScreen("Ahorcado/perdiste.png")
 
     assert perdisteMsg is not pag.ImageNotFoundException
 
 def test_perder_por_palabra(iniciar_aplicacion):
-    textInput = pag.locateOnScreen("textInput.png")
+    textInput = pag.locateOnScreen("Ahorcado/textInput.png")
     pag.click(pag.center(textInput))
     pag.write("PALABRA")
 
-    startButton = pag.locateOnScreen('empezar_juego.png')
+    startButton = pag.locateOnScreen('Ahorcado/empezar_juego.png')
     pag.click(pag.center(startButton))
 
-    palabraInput = pag.locateOnScreen("palabra_input.png")
+    palabraInput = pag.locateOnScreen("Ahorcado/palabra_input.png")
     pag.click(pag.center(palabraInput))
     pag.write("ERROR")
 
-    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
+    adivinarPalabraButton = pag.locateOnScreen("Ahorcado/adivinar_palabra.png")
     pag.click(pag.center(adivinarPalabraButton))
 
-    perdisteMsg = pag.locateOnScreen("perdiste.png")
+    perdisteMsg = pag.locateOnScreen("Ahorcado/perdiste.png")
 
     assert perdisteMsg is not pag.ImageNotFoundException
