@@ -58,7 +58,7 @@ jobs:
 
     - name: Run static analysis
       run: |
-        pylint C:\Users\leand\Documents\facultad\Agiles\Ahorcado\ > pylint-report.txt
+        pylint C:\Users\leand\Documents\facultad\Agiles\Ahorcado\
       continue-on-error: true
 
     - name: Upload Pylint Report
