@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.options import Options
+
+
 
 from Ahorcado import Ahorcado
 
@@ -18,7 +21,12 @@ def esperarElemento(dr,id):
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
 
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")  # Ejecutar Chrome en modo headless
+    options.add_argument("--disable-gpu")  # Desactivar la aceleración por GPU
+    options.add_argument("--no-sandbox")  # Evitar problemas de sandboxing
+
+    driver = webdriver.Chrome(options=options)
     driver.get("http://localhost:5000/")
 
     while driver.execute_script("return document.readyState") != "complete":
