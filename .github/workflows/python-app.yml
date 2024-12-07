@@ -47,8 +47,23 @@ jobs:
         behave C:\Users\leand\Documents\facultad\Agiles\Ahorcado\features --junit
         #python -c "import pyautogui; pyautogui.screenshot('debug_screenshot.png')"
           
-    - name: Upload Debug Screenshot
+    - name: Install dependencies for static analysis
+      run: |
+        pip install black pylint
+
+    - name: Run formatter
+      run: |
+        black --check .
+      continue-on-error: true
+
+    - name: Run static analysis
+      run: |
+        pylint C:\Users\leand\Documents\facultad\Agiles\Ahorcado > pylint-report.txt
+      continue-on-error: true
+
+    - name: Upload Pylint Report
       uses: actions/upload-artifact@v4
       with:
-        name: debug_screenshot
-        path: debug_screenshot.png
+        name: pylint-report
+        path: pylint-report.txt
+              
