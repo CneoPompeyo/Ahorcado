@@ -52,11 +52,11 @@ jobs:
       run: |
         #source venv/bin/activate
         nohup python app.py &
-        sleep 10
+        sleep 5
 
     - name: Run Acceptance tests for Ahorcado App
       run: |
-         behave D:\a\Ahorcado\Ahorcado\features --junit
+         behave --junit
           
     - name: Install dependencies for static analysis
       run: |
