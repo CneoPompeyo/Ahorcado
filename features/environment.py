@@ -22,7 +22,7 @@ def iniciar_aplicacion():
     print("Iniciando la aplicación...")
 
     options = Options()
-    options.add_argument("--headless")  # Ejecutar Chrome en modo headless
+    #options.add_argument("--headless")  # Ejecutar Chrome en modo headless
     options.add_argument("--disable-gpu")  # Desactivar la aceleración por GPU
     options.add_argument("--no-sandbox")  # Evitar problemas de sandboxing
 
