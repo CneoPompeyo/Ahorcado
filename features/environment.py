@@ -10,26 +10,16 @@ from selenium.webdriver.chrome.options import Options
 
 from Ahorcado import Ahorcado
 
-def esperarElemento(dr,id, timeout=10):
+def esperarElemento(dr,id):
     try:
         wait = WebDriverWait(dr, 5)  # Tiempo máximo de espera: 5 segundos
         elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
         return elemento
     except StaleElementReferenceException:
-        return esperarElementoCambiante(dr, id, timeout)
+        elemento = WebDriverWait(dr, timeout=10, ignored_exceptions=StaleElementReferenceException).until(EC.presence_of_element_located((By.ID, id)))
     except TimeoutException:
         print(f"El botón {id} no se pudo hacer click después de esperar 10 segundos")
 
-def esperarElementoCambiante(driver, id, timeout=10, retries=3):
-    for _ in range(retries):
-        try:
-            wait = WebDriverWait(driver, timeout)
-            elemento = wait.until(EC.presence_of_element_located((By.ID, id)))
-            if elemento.is_displayed():
-                return elemento
-        except StaleElementReferenceException:
-            continue
-    raise Exception(f"No se pudo encontrar el elemento con ID: {id}")
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
