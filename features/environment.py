@@ -1,62 +1,68 @@
-from behave import *
-import pyautogui as pag
-import subprocess as sp
-from time import sleep
-import os
+from behave import fixture
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
+from Ahorcado import Ahorcado
+
+def esperarElemento(dr,id):
+    try:
+        wait = WebDriverWait(dr, 5)  # Tiempo máximo de espera: 5 segundos
+        elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
+        return elemento
+    except TimeoutException:
+        print(f"El botón {id} no se pudo hacer click después de esperar 10 segundos")
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
-    script_path = os.path.abspath("AhorcadoApp.py")
-    
-    process = sp.Popen(['python', script_path], stdout=sp.PIPE, stderr=sp.PIPE)
-    sleep(1)  # Tiempo de espera para cargar la aplicación
-    print("Aplicación iniciada correctamente.")
-    return process
 
-def cerrar_aplicacion(process):
+    driver = webdriver.Chrome()
+    driver.get("http://localhost:5000/")
+
+    while driver.execute_script("return document.readyState") != "complete":
+        pass
+
+    print("Aplicación iniciada correctamente.")
+    return driver
+
+def cerrar_aplicacion(driver):
     #Cierra la aplicación después de la prueba.
-    if process:
-        process.terminate()
-        process.wait()
+    if driver:
+        driver.quit()
         print("Aplicación cerrada.")
 
-def palabraInicial(palabraTest):
-    textInput = pag.locateOnScreen("textInput.png")
-    pag.click(pag.center(textInput))
-    sleep(1)
-    pag.write(palabraTest)
+def palabraInicial(dr,palabraTest):
+    input = esperarElemento(dr,"palabra")
+    input.click()
+    input.send_keys(palabraTest)
+        
+    startBoton = esperarElemento(dr,"iniciar")
+    startBoton.click()
 
-    startButton = pag.locateOnScreen("empezar_juego.png")
-
-    pag.click(pag.center(startButton))
-
-def adivinaPalabra(palabraTest):
+def adivinaPalabra(dr,palabraTest):
     # Localizar el campo de entrada para la palabra
-    palabraInput = pag.locateOnScreen("palabra_input.png")
+    input = esperarElemento(dr,"palabra-completa")
+    input.click()
+    input.send_keys(palabraTest)
 
-    pag.click(pag.center(palabraInput))
-    pag.write(palabraTest)
-
-    # Localizar el botón para adivinar la palabra
-    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
-
-    pag.click(pag.center(adivinarPalabraButton))
+    boton = esperarElemento(dr,"adivina-palabra")
+    boton.click()
 
 @fixture
 def before_scenario(context,scenario):
-    context.process = iniciar_aplicacion()
-    pag.screenshot('debug_screenshot.png')
-    sleep(1)
+    context.driver = iniciar_aplicacion()
 
 def after_scenario(context,scenario):
-    cerrar_aplicacion(context.process)
+    cerrar_aplicacion(context.driver)
 
 def before_step(context,step):
-    #sleep(1)
+    dr = context.driver
     if ('Reiniciar juego luego de' in context.scenario.name):
-        if (step.step_type == 'given' and 'se muestra pantalla' in step.name):
-            palabraInicial('PALABRA')
+        if (step.step_type == 'given' and 'se muestra mensaje' in step.name):
+            palabraInicial(dr,'PALABRA')
             if ('perder' in context.scenario.name):
-                adivinaPalabra('MANZANA')
+                adivinaPalabra(dr,'MANZANA')
             else:
-                adivinaPalabra('PALABRA')
+                adivinaPalabra(dr,'PALABRA')

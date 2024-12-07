@@ -1,61 +1,47 @@
-from behave import *
-import pyautogui as pag
-import subprocess as sp
-import pytest
-from time import sleep
-
+from behave import given, when,then
+from environment import esperarElemento, palabraInicial, adivinaPalabra
 
 @given('la palabra es {palabraTest}')
 def step_impl(context,palabraTest):
-    pag.screenshot('debug_screenshot.png')
-    textInput = pag.locateOnScreen("textInput.png", confidence=0.9)
-    pag.click(pag.center(textInput))
-    sleep(1)
-    pag.write(palabraTest)
-
-    startButton = pag.locateOnScreen("empezar_juego.png")
-
-    pag.click(pag.center(startButton))
+    dr = context.driver
+    palabraInicial(dr,palabraTest)
 
 @when('jugador ingresa {palabraTest}')
 def step_impl(context,palabraTest):
-    # Localizar el campo de entrada para la palabra
-    palabraInput = pag.locateOnScreen("palabra_input.png")
-
-    pag.click(pag.center(palabraInput))
-    pag.write(palabraTest)
-
-    # Localizar el botón para adivinar la palabra
-    adivinarPalabraButton = pag.locateOnScreen("adivinar_palabra.png")
-
-    pag.click(pag.center(adivinarPalabraButton))
+    dr = context.driver
+    adivinaPalabra(dr,palabraTest)
 
     print(f"El jugador ingresó la palabra: {palabraTest}")
     
 @when('jugador intenta las letras {listaLetras}')
 def step_impl(context,listaLetras):
+    dr = context.driver
     lista = listaLetras.split(',')
 
-    letraInput = pag.locateOnScreen("letra_input.png")
-    letraButton = pag.locateOnScreen("adivinar_letra.png")
+    input = esperarElemento(dr,"letra")
+    startBoton = esperarElemento(dr,"adivina-letra")
+    
     for l in lista:
-        pag.click(pag.center(letraInput))
-        pag.write(l)
-        pag.click(pag.center(letraButton))
+        input.click()
+        input.send_keys(l)
+        startBoton.click()
 
-@then('se muestra pantalla {mensaje}')
-def step_impl(context,mensaje):
-    Msg = pag.locateOnScreen(f'{mensaje}.png')
+@then('se muestra {mensaje} "{valor}"')
+def step_impl(context,mensaje,valor):
+    dr = context.driver
+    Msg = esperarElemento(dr,mensaje)
 
-    assert Msg is not pag.ImageNotFoundException
+    assert Msg.text is not mensaje
 
-@given('se muestra pantalla {mensaje}')
-def step_impl(context,mensaje):
-    Msg = pag.locateOnScreen(f'{mensaje}.png')
+@given('se muestra {mensaje} "{valor}"')
+def step_impl(context,mensaje,valor):
+    dr = context.driver
+    Msg = esperarElemento(dr,mensaje)
 
-    assert Msg is not pag.ImageNotFoundException
+    assert Msg.text is not valor
 
 @when('jugador clickea en {boton}')
 def step_impl(context,boton):
-    Button = pag.locateOnScreen(f'{boton}.png')
-    pag.click(pag.center(Button))
+    dr = context.driver
+    boton = esperarElemento(dr,boton)
+    boton.click()

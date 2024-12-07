@@ -8,6 +8,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      # Servicio para levantar la app de Flask en un contenedor si es necesario
+      flask:
+        image: python:3.9-slim
+        ports:
+          - 5000:5000  # Exponer el puerto de Flask
+        options: --health-cmd="curl --silent --fail http://localhost:5000/ || exit 1" --health-interval=5s --health-timeout=3s --health-retries=3
 
     steps:
     - name: Checkout repository
@@ -27,10 +34,46 @@ jobs:
     - name: Run unit tests for ahorcado logic
       run: |
         pip install pytest pytest-cov
-        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
+        pytest --cov --cov-report=xml
 
 
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Install dependencies for AT
+      run: |
+        pip install selenium
+        pip install Flask
+        pip install behave
+  
+    - name: Initiate web app
+      run: |
+        #source venv/bin/activate
+        nohup python app.py
+        sleep 10
+
+    - name: Run Acceptance tests for Ahorcado App
+      run: |
+         behave D:\a\Ahorcado\Ahorcado\features --junit
+          
+    - name: Install dependencies for static analysis
+      run: |
+        pip install black pylint
+
+    - name: Run formatter
+      run: |
+        black --check
+      continue-on-error: true
+
+    - name: Run static analysis
+      run: |
+        pylint 
+      continue-on-error: true
+
+    - name: Upload Pylint Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pylint-report
+        path: pylint-report.txt

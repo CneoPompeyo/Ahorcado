@@ -7,7 +7,7 @@ async function startGame() {
     });
     const data = await response.json();
     if (response.ok) {
-        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("empezar_juego").style.display = "none";
         document.getElementById("game-screen").style.display = "block";
         document.getElementById("palabra-escondida").innerText = data.palabra;
     } else {

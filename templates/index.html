@@ -9,21 +9,21 @@
 <body>
     <h1>Ahorcado</h1>
     <div id="game">
-        <div id="start-screen">
+        <div id="empezar_juego">
             <input type="text" id="palabra" placeholder="Ingresa la palabra">
-            <button onclick="startGame()">Iniciar Juego</button>
+            <button id="iniciar" onclick="startGame()">Iniciar Juego</button>
         </div>
         <div id="game-screen" style="display: none;">
             <p id="palabra-escondida">_ _ _ _ _</p>
             <p id="vidas">Vidas restantes: 6</p>
             <p id="letras-usadas">Letras usadas: </p>
             <input type="text" id="letra" maxlength="1" placeholder="Adivina una letra">
-            <button onclick="adivinarLetra()">Adivinar Letra</button>
+            <button id="adivina-letra" onclick="adivinarLetra()">Adivinar Letra</button>
             <br>
             <input type="text" id="palabra-completa" placeholder="Adivina la palabra">
-            <button onclick="adivinarPalabra()">Adivinar Palabra</button>
+            <button id="adivina-palabra" onclick="adivinarPalabra()">Adivinar Palabra</button>
             <br>
-            <button onclick="resetGame()">Reiniciar Juego</button>
+            <button id="reiniciar" onclick="resetGame()">Reiniciar Juego</button>
         </div>
         <p id="mensaje"></p>
     </div>
