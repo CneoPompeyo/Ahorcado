@@ -51,7 +51,7 @@ jobs:
     - name: Initiate web app
       run: |
         #source venv/bin/activate
-        nohup python app.py
+        nohup python app.py &
         sleep 10
 
     - name: Run Acceptance tests for Ahorcado App
