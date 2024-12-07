@@ -29,8 +29,9 @@ def step_impl(context,listaLetras):
 @then('se muestra {mensaje} "{valor}"')
 def step_impl(context,mensaje,valor):
     dr = context.driver
+    print("Buscando mensaje: ", mensaje)
     Msg = esperarElemento(dr,mensaje)
-
+    print("Encontrado:", Msg)
     assert Msg.text is not mensaje
 
 @given('se muestra {mensaje} "{valor}"')
