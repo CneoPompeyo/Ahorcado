@@ -3,26 +3,39 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from selenium.webdriver.chrome.options import Options
 
 
 
 from Ahorcado import Ahorcado
 
-def esperarElemento(dr,id):
+def esperarElemento(dr,id, timeout=10):
     try:
         wait = WebDriverWait(dr, 5)  # Tiempo máximo de espera: 5 segundos
         elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
         return elemento
+    except StaleElementReferenceException:
+        return esperarElementoCambiante(dr, id, timeout)
     except TimeoutException:
         print(f"El botón {id} no se pudo hacer click después de esperar 10 segundos")
+
+def esperarElementoCambiante(driver, id, timeout=10, retries=3):
+    for _ in range(retries):
+        try:
+            wait = WebDriverWait(driver, timeout)
+            elemento = wait.until(EC.presence_of_element_located((By.ID, id)))
+            if elemento.is_displayed():
+                return elemento
+        except StaleElementReferenceException:
+            continue
+    raise Exception(f"No se pudo encontrar el elemento con ID: {id}")
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
 
     options = Options()
-    #options.add_argument("--headless")  # Ejecutar Chrome en modo headless
+    options.add_argument("--headless")  # Ejecutar Chrome en modo headless
     options.add_argument("--disable-gpu")  # Desactivar la aceleración por GPU
     options.add_argument("--no-sandbox")  # Evitar problemas de sandboxing
 
