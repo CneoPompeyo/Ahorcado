@@ -75,8 +75,8 @@ def adivinaPalabra(dr,palabraTest):
 def before_scenario(context,scenario):
     context.driver = iniciar_aplicacion()
 
-def after_scenario(context,scenario):
-    cerrar_aplicacion(context.driver)
+#def after_scenario(context,scenario):
+ #   cerrar_aplicacion(context.driver)
 
 def before_step(context,step):
     dr = context.driver
