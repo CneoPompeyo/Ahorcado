@@ -11,14 +11,14 @@ jobs:
     services:
       # Servicio para levantar la app de Flask en un contenedor si es necesario
       flask:
-        image: python:3.9-slim
+        image: python:3.10
         ports:
           - 5000:5000  # Exponer el puerto de Flask
         options: --health-cmd="curl --silent --fail http://localhost:5000/ || exit 1" --health-interval=5s --health-timeout=3s --health-retries=3
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
