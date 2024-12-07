@@ -28,6 +28,10 @@ async function adivinarLetra() {
         document.getElementById("vidas").innerText = `Vidas restantes: ${data.vidas}`;
         document.getElementById("letras-usadas").innerText = `Letras usadas: ${data.letrasUsadas.join(", ")}`;
         document.getElementById("mensaje").innerText = data.message;
+        // Deshabilitar inputs y botones si el juego termina
+        if (data.message === "GANASTE" || data.message === "PERDISTE") {
+            disableInputs();
+        }
     } else {
         alert(data.message);
     }
@@ -44,6 +48,10 @@ async function adivinarPalabra() {
     const data = await response.json();
     if (response.ok) {
         document.getElementById("mensaje").innerText = data.message;
+        // Deshabilitar inputs y botones si el juego termina
+        if (data.message === "GANASTE" || data.message === "PERDISTE") {
+            disableInputs();
+        }
     } else {
         alert(data.message);
     }
@@ -58,4 +66,11 @@ async function resetGame() {
     } else {
         alert(data.message);
     }
+}
+
+function disableInputs() {
+    document.getElementById("letra").disabled = true;
+    document.getElementById("palabra-completa").disabled = true;
+    document.querySelector("button[onclick='adivinarLetra()']").disabled = true;
+    document.querySelector("button[onclick='adivinarPalabra()']").disabled = true;
 }
