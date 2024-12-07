@@ -30,7 +30,7 @@ class Ahorcado():
             return 'CORRECTA'
         else:
             self.restarVida()
-            if (self.getVidas() == 0):
+            if (self.getVidas() == -1):
                 return 'PERDISTE'
             else :
                 return 'INCORRECTA'

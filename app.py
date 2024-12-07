@@ -30,7 +30,7 @@ def guess_letter():
         return jsonify({
             'message': mensaje,
             'palabra': ' '.join(juego.getPalabraEscondida()),
-            'vidas': juego.getVidas(),
+            'vidas': 0 if juego.getVidas() == -1 else juego.getVidas() ,
             'letrasUsadas': juego.getLetrasUsadas()
         })
     return jsonify({'message': 'Error: Letra no válida'}), 400
