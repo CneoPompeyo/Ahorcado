@@ -21,8 +21,8 @@ class Ahorcado:
             if self.getPalabraEscondida().replace(" ", "") == self.getPalabra():
                 mensaje = "GANASTE"
             return mensaje
-        else:
-            return "USADA"
+
+        return "USADA"
 
     def verificarLetra(self, a):
         "verificacion de letra"
@@ -30,19 +30,16 @@ class Ahorcado:
         if posi != -1:
             self.setPalabraEscondida(a)
             return "CORRECTA"
-        else:
-            self.restarVida()
-            if self.getVidas() == -1:
-                return "PERDISTE"
-            else:
-                return "INCORRECTA"
+        self.restarVida()
+        if self.getVidas() == -1:
+            return "PERDISTE"
+        return "INCORRECTA"
 
     def verificarPalabra(self, a):
         "verificacion de palabra"
         if self.getPalabra() == a:
             return "GANASTE"
-        else:
-            return "PERDISTE"
+        return "PERDISTE"
 
     def restarVida(self):
         "Restar vida"
@@ -53,9 +50,11 @@ class Ahorcado:
         self.palabra = x
 
     def getPalabra(self):
+        "Get de palabra"
         return self.palabra
 
     def setVidas(self, x):
+        "Setter de vidas"
         self.vidas = x
 
     def fueUsada(self, letra):
@@ -67,9 +66,11 @@ class Ahorcado:
             return False
 
     def getPalabraEscondida(self):
+        "Getter de palabra a adivinar"
         return self.palabraescondida
 
     def setPalabraEscondida(self, letra):
+        "Setter de palabra a adivinar"
         self.palabraescondida = " ".join(
             [
                 i if (i == letra or self.getPalabraEscondida().find(i) != -1) else "_"
@@ -78,12 +79,15 @@ class Ahorcado:
         )
 
     def setLetrasUsadas(self, x):
+        "Setter de array de letras usadas"
         self.letrasUsadas = x
 
     def getLetrasUsadas(self):
+        "Getter de array de letras usadas"
         return self.letrasUsadas
 
     def getVidas(self):
+        "Getter de vidas"
         return self.vidas
 
     def reset(self, palabra=""):
