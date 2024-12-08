@@ -3,10 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from selenium.webdriver.chrome.options import Options
-
-
 
 from Ahorcado import Ahorcado
 
@@ -15,8 +13,10 @@ def esperarElemento(dr,id):
         wait = WebDriverWait(dr, 5)  # Tiempo máximo de espera: 5 segundos
         elemento = wait.until(EC.element_to_be_clickable((By.ID, id)))
         return elemento
-    except TimeoutException:
-        print(f"El botón {id} no se pudo hacer click después de esperar 5 segundos")
+    except StaleElementReferenceException or TimeoutException:
+        elemento = WebDriverWait(dr, timeout=5, ignored_exceptions=(TimeoutException, StaleElementReferenceException)).until(EC.presence_of_element_located((By.ID, id)))
+        print(f"El botón {id} no se pudo hacer click después de esperar 10 segundos")
+        return elemento
 
 def iniciar_aplicacion():
     print("Iniciando la aplicación...")
