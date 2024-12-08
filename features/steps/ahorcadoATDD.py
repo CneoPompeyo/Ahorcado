@@ -26,18 +26,23 @@ def step_impl(context,listaLetras):
         input.send_keys(l)
         startBoton.click()
 
-@then('se muestra {mensaje} "{valor}"')
-def step_impl(context,mensaje,valor):
+@then('se muestra {elemento} "{valor}"')
+def step_impl(context,elemento,valor):
     dr = context.driver
-    print("Buscando mensaje: ", mensaje)
-    Msg = esperarElemento(dr,mensaje)
-    print("Encontrado:", Msg)
-    assert Msg.text is not mensaje
+    Msg = esperarElemento(dr,elemento)
+    assert Msg.text is not valor
 
-@given('se muestra {mensaje} "{valor}"')
-def step_impl(context,mensaje,valor):
+@then('vuelve a pantalla "{elemento}"')
+def step_impl(context,elemento):
     dr = context.driver
-    Msg = esperarElemento(dr,mensaje)
+    Msg = esperarElemento(dr,elemento)
+    assert Msg.text is not None
+
+
+@given('se muestra {elemento} "{valor}"')
+def step_impl(context,elemento,valor):
+    dr = context.driver
+    Msg = esperarElemento(dr,elemento)
 
     assert Msg.text is not valor
 

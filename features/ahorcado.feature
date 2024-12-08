@@ -9,20 +9,20 @@ Feature: Ahorcado
     When jugador ingresa PALABRA
     Then se muestra mensaje "ganaste"
     
-    Scenario: Reiniciar juego luego de ganar
-      Given se muestra mensaje "ganaste"
-      When jugador clickea en reiniciar
-      Then se muestra mensaje "empezar_juego"
+  Scenario: Reiniciar juego luego de ganar
+    Given se muestra mensaje "ganaste"
+    When jugador clickea en reiniciar
+    Then vuelve a pantalla "empezar_juego"
 
   Scenario: Perder el juego intentando palabra entera
     Given la palabra es PALABRA
     When jugador ingresa MANZANA
-    Then se muestra mensaje "iniciar"
+    Then se muestra mensaje "perdiste"
 
   Scenario: Reiniciar juego luego de perder
     Given se muestra mensaje "perdiste"
     When jugador clickea en reiniciar
-    Then se muestra mensaje "iniciar"
+    Then vuelve a pantalla "empezar_juego"
 
   Scenario: Quedarse sin vidas
     Given la palabra es PALABRA
