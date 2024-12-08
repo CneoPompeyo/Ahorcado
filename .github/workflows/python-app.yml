@@ -52,7 +52,7 @@ jobs:
       run: |
         #source venv/bin/activate
         nohup python app.py &
-        sleep 5
+        #sleep 5
 
     - name: Run Acceptance tests for Ahorcado App
       run: |
@@ -64,7 +64,7 @@ jobs:
 
     - name: Run formatter
       run: |
-        black Ahorcado\ --check
+        black "Ahorcado" --check
       continue-on-error: true
 
     - name: Run static analysis
