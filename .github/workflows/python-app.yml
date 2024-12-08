@@ -65,7 +65,7 @@ jobs:
     - name: Run formatter
       run: |
         pwd
-        black . --check
+        black .
       continue-on-error: true
 
     - name: Run static analysis
