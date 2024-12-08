@@ -64,7 +64,7 @@ jobs:
 
     - name: Run formatter
       run: |
-        black --check Ahorcado\
+        black Ahorcado\ --check
       continue-on-error: true
 
     - name: Run static analysis
