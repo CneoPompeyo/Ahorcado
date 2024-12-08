@@ -64,12 +64,12 @@ jobs:
 
     - name: Run formatter
       run: |
-        black --check Ahorcado/
+        black --check Ahorcado\
       continue-on-error: true
 
     - name: Run static analysis
       run: |
-        pylint Ahorcado/
+        pylint Ahorcado\
       continue-on-error: true
 
     - name: Upload Pylint Report
