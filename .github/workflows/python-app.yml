@@ -72,18 +72,10 @@ jobs:
         path: pylint-report.txt
 
   deploy:
-      if: github.event_name == 'push'
+      if: github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       needs: test
       steps:
         - name: Trigger render deploy hook
-          run: curl -X POST ${{ secrets.RENDER_HOOK }}
-
-  notify_merge:
-    if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Notify PR Merged
-        run: echo "The PR was merged successfully!"
-
-
+          run:
+           curl -X POST ${{ secrets.RENDER_HOOK }}
