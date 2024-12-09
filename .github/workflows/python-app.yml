@@ -1,17 +1,26 @@
-name: Testing
+name: CI/CD Worflow
 on:
   push:
     branches:
       - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      # Servicio para levantar la app de Flask en un contenedor si es necesario
+      flask:
+        image: python:3.10
+        ports:
+          - 5000:5000  # Exponer el puerto de Flask
+       # options: --health-cmd="curl --silent --fail http://localhost:5000/ || exit 1" --health-interval=5s --health-timeout=3s --health-retries=3
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -21,16 +30,60 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
-        pip install -Iv pyautogui==0.9.39
+        pip install -r requirements.txt
+
 
     - name: Run unit tests for ahorcado logic
       run: |
         pip install pytest pytest-cov
-        pytest --cov --cov-report=xml --ignore test_ahorcadoGUI.py
+        pytest --cov --cov-report=xml
 
 
     - name: Upload results to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        
+    - name: Initiate web app
+      run: |
+        #source venv/bin/activate
+        nohup python app.py &
+        #sleep 5
+
+    - name: Run Acceptance tests for Ahorcado App
+      run: |
+         behave --junit
+          
+    - name: Run formatter
+      run: |
+        pwd
+        black .
+      continue-on-error: true
+
+    - name: Run static analysis
+      run: |
+        pylint . > pylint-report.txt
+      continue-on-error: true
+
+    - name: Upload Pylint Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pylint-report
+        path: pylint-report.txt
+
+  deploy:
+      if: github.event_name == 'push'
+      runs-on: ubuntu-latest
+      needs: test
+      steps:
+        - name: Trigger render deploy hook
+          run: curl -X POST ${{ secrets.RENDER_HOOK }}
+
+  notify_merge:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify PR Merged
+        run: echo "The PR was merged successfully!"
+
+
