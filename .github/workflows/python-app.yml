@@ -28,8 +28,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
-        pip install gunicorn
+        pip install -r requirements.txt
+
 
     - name: Run unit tests for ahorcado logic
       run: |
@@ -41,13 +41,7 @@ jobs:
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-
-    - name: Install dependencies for AT
-      run: |
-        pip install selenium
-        pip install Flask
-        pip install behave
-  
+        
     - name: Initiate web app
       run: |
         #source venv/bin/activate
@@ -58,10 +52,6 @@ jobs:
       run: |
          behave --junit
           
-    - name: Install dependencies for static analysis
-      run: |
-        pip install black pylint
-
     - name: Run formatter
       run: |
         pwd
