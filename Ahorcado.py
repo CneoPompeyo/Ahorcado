@@ -92,7 +92,7 @@ class Ahorcado:
 
     def reset(self, palabra=""):
         "Reset de estados"
-        self.setVidas(6)
+        self.setVidas(5)
         self.definirPalabra(palabra)
         self.setLetrasUsadas([])
         self.setPalabraEscondida("")
